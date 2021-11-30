@@ -19,10 +19,10 @@
         </script>
         {{-- Google map api  --}}
 
-        <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7a-pVRxc_cx00QNTiPWQZW50qxiqZGO0&libraries=places">
+        <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvJo3uy6XOLI0qdGikoOK7Vgeu2cMvNFY">
         </script>
 
-        <script src="{{asset('js/script.js')}}"></script>
+{{--        <script src="{{asset('js/script.js')}}"></script>--}}
         <script src="{{asset('js/ajaxsearch.js')}}"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
         </script>

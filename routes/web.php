@@ -1,6 +1,7 @@
 
 <?php
-use App\Location;
+
+use App\Http\Controllers\SearchGirlsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +14,15 @@ use App\Location;
 */
 
 Route::get('/', function () {
-    $districts=Location::pluck('district','district');
+//    $districts=Location::pluck('district','district');
 
-    return view('front',compact('districts'));
+    return view('front');
 });
+Route::post('/addInfo', 'SearchGirlsController@addInfo')->name('location.store');
+//Route::get('/front', function () {
+////    $districts=Location::pluck('district','district');
+//
+//    return view('front');
+//});
 
+Route::get('maps', 'SearchGirlsController@gmaps');

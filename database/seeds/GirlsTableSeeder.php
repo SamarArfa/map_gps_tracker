@@ -18,8 +18,8 @@ class GirlsTableSeeder extends Seeder
 
             Girl::create([
                 'name'=>$faker->name,
-                'lat'=>$faker->unique()->latitude(27,29),
-                'lng'=>$faker->unique()->longitude(81,88),
+                'lat'=>$faker->unique()->latitude(31,39),
+                'lng'=>$faker->unique()->longitude(35,39),
             ]);
 
         }

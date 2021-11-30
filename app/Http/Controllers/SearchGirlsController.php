@@ -5,36 +5,52 @@ namespace App\Http\Controllers;
 use App\Girl;
 use App\Location;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\DocBlock\Tags\Link;
 
 class SearchGirlsController extends Controller
 {
-    public function searchGirls(Request $request)
+    public function addInfo(Request $request)
     {
-    	$lat=$request->lat;
-    	$lng=$request->lng;
-    	$girls=Girl::whereBetween('lat',[$lat-0.1,$lat+0.1])->whereBetween('lng',[$lng-0.1,$lng+0.1])->get();
-    	return $girls;
+//dd("dsgsgr");
+//echo "dfewefw";
+        $this->validate($request, [
+            'fname' => 'required',
+            'department_education' => 'required',
+            'department_Labor' => 'required',
+            'department_health' => 'required',
+            'lat' => 'required',
+            'lng'=>'required',
+        ]);
+        $location = new Location;
+        $location->fname = $request->fname;
+        $location->department_Labor = $request->department_Labor;
+        $location->department_education = $request->department_education;
+        $location->department_health = $request->department_health;
+        $location->lat = $request->lat;
+        $location->lng = $request->lng;
+        $location->save();
+        $locations = DB::table('locations')->get();
+        return view('maps',compact('locations'))->with('status', 'Blog Post Form Data Has Been inserted');
     }
 
-    public function searchCity(Request $request)
+    public function gmaps()
     {
-        $locationVal=$request->locationVal;
-        $matchedCities=Location::where('city','like',"%$locationVal%")->pluck('city','city');
-        return response()->json(['items'=>$matchedCities]);
-        // return view('ajxresult',compact('matchedCities'));
-    }
-
-    public function locationCoords(Request $request)
-    {
-        $val=$request->val;
-        $col=Location::where('city',$val)->first();
-
-        $lat=$col->lat;
-        $lng=$col->lng;
-
-
-        return [$lat,$lng];
+        $locations = DB::table('locations')->get();
+        return view('maps',compact('locations'));
     }
 }
+//$.each( locations, function( index, value ){
+//    marker = new google.maps.Marker({
+//            position: new google.maps.LatLng(value.lat, value.lng),
+//            map: map
+//        });
+//
+//        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+//            return function() {
+//                infowindow.setContent(value.fname);
+//                infowindow.open(map, marker);
+//            }
+//        })(marker, i));
+//    });
